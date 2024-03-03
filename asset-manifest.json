@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/inan-rjsf/static/css/main.c6869166.css",
+    "main.js": "/inan-rjsf/static/js/main.5b4394a8.js",
+    "index.html": "/inan-rjsf/index.html",
+    "main.c6869166.css.map": "/inan-rjsf/static/css/main.c6869166.css.map",
+    "main.5b4394a8.js.map": "/inan-rjsf/static/js/main.5b4394a8.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.c6869166.css",
+    "static/js/main.5b4394a8.js"
+  ]
+}
