@@ -1,25 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+// src/App.js
+import React,{lazy, Suspense} from 'react';
+//import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+//const Home  =lazy(()=> import ('./pages/test/callfuntion'))
 
 function App() {
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  <div>dong</div>
+      
+  //   <Router>
+  //   <Suspense fallback={<div>Loading...</div>}>
+  //     <Navbar />
+  //     <Routes>
+  
+  //     <Route path="/pressure/api/auth/callback/google" element={<GoogleAuth />} />
+    
+      
+  //     </Routes>
+  //   </Suspense>
+  // </Router>
+);
 }
 
 export default App;
