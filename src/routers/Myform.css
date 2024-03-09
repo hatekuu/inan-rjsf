@@ -20,8 +20,8 @@
 
 .my-form input {
   width: 100%;
-  height: 40px; /* Update the height to 40px for consistency */
-  font-size: 18px;
+  height: 60px; /* Update the height to 40px for consistency */
+  font-size: 25px;
   padding: 12px;
   margin-bottom: 15px;
   box-sizing: border-box;
