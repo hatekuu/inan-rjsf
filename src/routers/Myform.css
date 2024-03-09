@@ -1,0 +1,111 @@
+/* MyForm.css */
+
+.inline-field {
+    display: inline-block;
+    margin-right: 10px; /* Để tạo khoảng cách giữa các trường */
+  }
+  .my-form {
+    text-align: center; /* Căn giữa container */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #f9f9f9;
+  }
+  .my-form .form-group {
+    margin-bottom: 15px;
+    display: inline-block;
+  }
+  
+  .my-form label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+    color: #333;
+  }
+  
+  .my-form input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+    transition: border-color 0.3s ease;
+  }
+  
+  .my-form input:focus {
+    border-color: #4caf50;
+  }
+
+  
+  .my-form button[title="Remove"] {
+    display: inline-block;
+    margin-right: 380px;
+    margin-left: 380px;
+    width: 30px;
+    height: 30px;
+    background-color: #ff0000;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+  }
+  
+  .my-form button[title="Remove"]::before {
+    content: '✖'; /* Unicode character for 'x' */
+  }
+  .my-form .btn-add::after {
+    content: '✚'; /* Unicode character for 'plus' */
+    display: inline-block;
+    margin-right: 360px;
+    margin-left: 360px;
+    width: 73px;
+    height: 30px;
+    background-color: blue;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+  }
+  
+  .sumit {
+    background-color: #4caf50;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .sumit {
+    background-color: #45a049;
+  }
+  .my-form legend {
+    display: none;
+  }
+
+
+  .btn-add::after {
+    background-color: #4caf50;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+  }
+  
+  
+  
+  
