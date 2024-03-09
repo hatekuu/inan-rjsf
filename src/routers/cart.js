@@ -8,11 +8,13 @@ import * as Realm from 'realm-web';
 const MyForm = () => {
   const app = new Realm.App({ id: process.env.REACT_APP_KEY });
   const [products, setProducts] = useState([]);
+
   const [jsonSchema, setjsonSchema] = useState([]);
   const [uiSchema, setuiSchema] = useState([]);
   const [price, setPrice]= useState([])
 const [jsonSchema2 ,setjsonSchema2] = useState([]);
  const [uiSchema2, setuiSchema2] = useState([]);
+ const [loading, setLoading] = useState(true);
   useEffect(() => {
     fetchData();
   }, []);
@@ -26,29 +28,70 @@ const [jsonSchema2 ,setjsonSchema2] = useState([]);
      setjsonSchema2(findCart[0]?.public?.output?.jsonSchema)
      setuiSchema2(findCart[0]?.public?.output?.uiSchema)
     setPrice(findCart[0]?.public?.output?.jsonData)
-    console.log(findCart[0])
+    setLoading(false);
+    
+
+   
+
+ 
     } catch (error) {
       console.error('Error fetching products:', error);
-
+      setLoading(false);
     }
   };
   const onSubmit = async ({ formData }) => {
-    console.log("Form data submitted:", formData);
+  
     const functionName = "updateCart";
     const args=[app.currentUser.id, formData?.products]
+    try {
    await app.currentUser.callFunction(functionName, ...args);
-   fetchData();
-    // Handle form submission logic here
+
+  
+      fetchData();
+       // Handle form submission logic here
+    } catch (error) {
+      const errorMessage = error.error;
+      const uppercasedErrorMessage = errorMessage.charAt(0).toUpperCase() + errorMessage.slice(1);
+    alert(uppercasedErrorMessage);
+    }
+
   };
   const onChange =  async ({ formData }) => {
   //   console.log("Form data submitted:", formData?.products);
-  //   const functionName = "updateCart";
-  //   const args=[app.currentUser.id, formData?.products]
-  //  await app.currentUser.callFunction(functionName, ...args);
+    const functionName = "updateCart";
+    const args=[app.currentUser.id, formData?.products]
+    try {
+      
+      
+   await app.currentUser.callFunction(functionName, ...args);
 
+   console.log(formData.products)
+  } catch (error) {
+    const errorMessage = error.error;
+    const uppercasedErrorMessage = errorMessage.charAt(0).toUpperCase() + errorMessage.slice(1);
+  alert(uppercasedErrorMessage);
+  }
   
   };
-  // const jsonSchema = {
+  const onSubmit2 = async ( ) => {
+    const user= await app.currentUser.refreshCustomData()
+
+    const functionName = "ToTempCart";
+    const args=[app.currentUser.customData ,user.cart]
+    try {
+      
+   await app.currentUser.callFunction(functionName, ...args);
+  
+      fetchData();
+       // Handle form submission logic here
+    } catch (error) {
+      const errorMessage = error.error;
+      const uppercasedErrorMessage = errorMessage.charAt(0).toUpperCase() + errorMessage.slice(1);
+    alert(uppercasedErrorMessage);
+    }
+
+  };
+  // const jsonSchema22 = {
     
  
   // "title": "Product Information",
@@ -191,32 +234,36 @@ const [jsonSchema2 ,setjsonSchema2] = useState([]);
 
   return (
     <>
-      {products?.products?.length > 0 ? (
-        <div>
-        <Form
-          className='my-form'
-          validator={validator}
-          schema={jsonSchema}
-          uiSchema={uiSchema}
-          formData={products}
-          onSubmit={onSubmit}
-         onChange={onChange}
-        />
-       <Form
+      {loading ? (
+        <div>dong</div>
+      ) : (
+        <>
+          <Form
+            className='my-form'
+            formData={products}
+            validator={validator}
+            schema={jsonSchema}
+            uiSchema={uiSchema}
+            onSubmit={onSubmit}
+            onChange={onChange}
+          />
+       
+           {price.totalValue===0 ? (
+          <></>
+        ) : (
+          <Form
           className='my-form'
           validator={validator}
           schema={jsonSchema2}
           uiSchema={uiSchema2}
           formData={price}
-       
+          onSubmit={onSubmit2}
         />
-        </div>
-      ) : (
-        <div>Chưa có sản phẩm trong giỏ hàng</div>
+        )}
+        </>
       )}
     </>
   );
-  
-};
+      };  
 
 export default MyForm;

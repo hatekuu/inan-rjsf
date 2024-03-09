@@ -21,7 +21,7 @@ const Login = () => {
         navigate('/inan-rjsf/admin/addproduct')
       }
     } catch (error) {
-      console.error('Error fetching data:', error);
+     alert(error.error)
     }
   };
 
@@ -40,8 +40,13 @@ const Login = () => {
       } else if (user.customData?.type === "Admin") {
         navigate('/inan-rjsf/admin/addproduct')
       }
+     else if (user.customData?.type === "Manager") {
+      navigate('/inan-rjsf/manager')
+    }
     } catch (error) {
-      console.error('Login failed:', error);
+      const errorMessage = error.error;
+      const uppercasedErrorMessage = errorMessage.charAt(0).toUpperCase() + errorMessage.slice(1);
+    alert(uppercasedErrorMessage);
     } finally {
       setIsLoading(false);
     }

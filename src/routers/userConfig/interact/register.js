@@ -29,7 +29,9 @@ const Register = () => {
       await app.emailPasswordAuth.registerUser({ email, password });
       setRegistrationStatus("Registration successful!");
     } catch (error) {
-      console.error("Registration failed:", error);
+      const errorMessage = error.error;
+      const uppercasedErrorMessage = errorMessage.charAt(0).toUpperCase() + errorMessage.slice(1);
+    alert(uppercasedErrorMessage);
       setRegistrationStatus("Registration failed!");
     } finally {
       setIsLoading(false);
