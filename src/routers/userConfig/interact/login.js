@@ -16,7 +16,7 @@ const Login = () => {
   const fetchData = async () => {
     try {
       if (app.currentUser?.customData?.type === "normal") {
-        navigate('/inan-rjsf/products');
+        navigate('/inan-rjsf/products/Mycart');
       } else if (app.currentUser?.customData?.type === "Admin") {
         navigate('/inan-rjsf/admin/addproduct')
       }
@@ -36,7 +36,7 @@ const Login = () => {
       const credentials = Realm.Credentials.emailPassword(email, password);
       const user = await app.logIn(credentials);
       if (user.customData?.type === "normal") {
-        navigate('/inan-rjsf/products');
+        navigate('/inan-rjsf/products/Mycart');
       } else if (user.customData?.type === "Admin") {
         navigate('/inan-rjsf/admin/addproduct')
       }
@@ -103,12 +103,12 @@ const Login = () => {
         <p className="mt-4 text-center">
           Quên mật khẩu? <Link to="/inan-rjsf/resetpassword" className="text-indigo-500">Tìm mật khẩu ngay!</Link>
         </p>
-        <div className="flex items-center justify-center mt-4  mb-4">
+        {/*  <div className="flex items-center justify-center mt-4  mb-4">
           <span className="mr-4 border-b w-1/4"></span>
           <p>Hoặc</p>
           <span className="ml-4 border-b w-1/4"></span>
         </div>
-        {/*<button
+       <button
           className={`w-full bg-indigo-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ${
             isLoading ? 'opacity-50 cursor-not-allowed' : ''
           }`}
