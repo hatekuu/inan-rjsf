@@ -47,21 +47,21 @@ const Login = () => {
     }
   };
 
-  const handleGoogleAuth = async () => {
-    try {
-      const redirectUrl = "http://localhost:3000/inan-rjsf/api/auth/callback/google";
-      const credentials = Realm.Credentials.google({ redirectUrl });
-      const user = await app.logIn(credentials);
+  // const handleGoogleAuth = async () => {
+  //   try {
+  //     const redirectUrl = "http://localhost:3000/inan-rjsf/api/auth/callback/google";
+  //     const credentials = Realm.Credentials.google({ redirectUrl });
+  //     const user = await app.logIn(credentials);
 
-      if (user.customData?.type === "normal") {
-        navigate('/inan-rjsf/products');
-      } else if (user.customData?.type === "Admin") {
-        navigate('/inan-rjsf/admin/addproduct')
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  //     if (user.customData?.type === "normal") {
+  //       navigate('/inan-rjsf/products');
+  //     } else if (user.customData?.type === "Admin") {
+  //       navigate('/inan-rjsf/admin/addproduct')
+  //     }
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="bg-white p-8 rounded shadow-md w-96 border border-gray-300">
@@ -108,7 +108,7 @@ const Login = () => {
           <p>Hoặc</p>
           <span className="ml-4 border-b w-1/4"></span>
         </div>
-        <button
+        {/*<button
           className={`w-full bg-indigo-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ${
             isLoading ? 'opacity-50 cursor-not-allowed' : ''
           }`}
@@ -116,7 +116,7 @@ const Login = () => {
           disabled={isLoading}
         >
           Đăng nhập bằng Google
-        </button>
+        </button>*/}
       </div>
     </div>
   );

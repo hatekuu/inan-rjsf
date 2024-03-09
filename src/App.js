@@ -1,7 +1,7 @@
 // src/App.js
 import React,{lazy, Suspense} from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Navbar  from './components/Narbar';
+//import Navbar  from './components/Narbar';
 const Home  =lazy(()=> import ('./routers/home'))
 const Login  =lazy(()=> import ('./routers/userConfig/interact/login'))
 const Register  =lazy(()=> import ('./routers/userConfig/interact/register'))
@@ -20,7 +20,7 @@ function App() {
  
     <Router>
   <Suspense fallback={<div>Loading...</div>}>
-    <Navbar/>
+ {/*  <Navbar/>*/}
     <Routes>
     <Route path="/inan-rjsf/admin/addproduct" element={<AddProduct />} />
     <Route path="/inan-rjsf/products" element={<Products />} />
