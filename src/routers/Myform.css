@@ -1,15 +1,15 @@
 /* MyForm.css */
 
 .my-form {
-  width: 50%; /* Adjust the width as per your preference */
-  margin: 0 auto; /* Center the container horizontally */
+  width: 50%; 
+  margin: 0 auto;
   text-align: center;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  border: 1px solid #ddd;
+  /* border: 1px solid #ddd;
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  background-color: #f9f9f9;
-  padding: 20px; /* Add some padding to the container */
+  background-color: #f9f9f9; */
+  padding: 20px; 
 }
 .my-form label {
   font-weight: bold;
