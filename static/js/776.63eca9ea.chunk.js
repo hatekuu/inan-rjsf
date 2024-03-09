@@ -1,2 +1,0 @@
-"use strict";(self.webpackChunkproducts=self.webpackChunkproducts||[]).push([[776],{776:(s,e,t)=>{t.r(e),t.d(e,{default:()=>f});var c=t(5043),r=t(3216),u=t(3402),p=t(579);const f=()=>{const s=(0,r.Zp)();return(0,c.useEffect)((()=>{try{u.fH()}catch(e){}s("/pressure/home")})),(0,p.jsx)("div",{})}}}]);
-//# sourceMappingURL=776.63eca9ea.chunk.js.map

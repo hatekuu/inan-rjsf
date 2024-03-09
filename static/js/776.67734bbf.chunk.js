@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkproducts=self.webpackChunkproducts||[]).push([[776],{776:(s,t,c)=>{c.r(t),c.d(t,{default:()=>n});var e=c(5043),r=c(3216),u=c(3402),f=c(579);const n=()=>{const s=(0,r.Zp)();return(0,e.useEffect)((()=>{try{u.fH()}catch(t){}s("/inan-rjsf/home")})),(0,f.jsx)("div",{})}}}]);
+//# sourceMappingURL=776.67734bbf.chunk.js.map
