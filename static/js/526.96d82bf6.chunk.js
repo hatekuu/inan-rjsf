@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkproducts=self.webpackChunkproducts||[]).push([[526],{3526:(n,s,e)=>{e.r(s),e.d(s,{default:()=>c});e(5043);var r=e(5475),t=e(579);const c=()=>(0,t.jsxs)("div",{children:["\u0110\xe2y l\xe0 trang web b\xe1n h\xe0ng in \u1ea5n",(0,t.jsx)(r.N_,{to:"/inan-rjsf/login",className:"text-blue-500 mr-4",children:"\u0110\u0103ng nh\u1eadp"})]})}}]);
+//# sourceMappingURL=526.96d82bf6.chunk.js.map
