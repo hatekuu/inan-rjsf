@@ -12,7 +12,7 @@ const GoogleAuth = () => {
       
     }
   
-    navigate('/pressure/home');
+    navigate('/inan-rjsf/home');
   });
   return (
    <div>
