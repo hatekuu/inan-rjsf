@@ -1,22 +1,22 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Form from "@rjsf/core";
 import './Myform.css'; // Import file CSS
 import  validator from '@rjsf/validator-ajv8';
 import * as Realm from 'realm-web';
-
-
 const MyForm = () => {
-  const app = new Realm.App({ id: process.env.REACT_APP_KEY });
-  const [products, setProducts] = useState([]);
-
-  const [jsonSchema, setjsonSchema] = useState([]);
-  const [uiSchema, setuiSchema] = useState([]);
-  const [price, setPrice]= useState([])
-const [jsonSchema2 ,setjsonSchema2] = useState([]);
- const [uiSchema2, setuiSchema2] = useState([]);
- const [loading, setLoading] = useState(true);
+    const app = new Realm.App({ id: process.env.REACT_APP_KEY });
+    const [products, setProducts] = useState([]);
+    const [jsonSchema, setjsonSchema] = useState([]);
+    const [uiSchema, setuiSchema] = useState([]);
+    const [price, setPrice]= useState([])
+  const [jsonSchema2 ,setjsonSchema2] = useState([]);
+  const [uiSchema2, setuiSchema2] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
   useEffect(() => {
     fetchData();
+    console.log(jsonSchema)
   }, []);
   const fetchData = async () => {
     try {
@@ -29,67 +29,56 @@ const [jsonSchema2 ,setjsonSchema2] = useState([]);
      setuiSchema2(findCart[0]?.public?.output?.uiSchema)
     setPrice(findCart[0]?.public?.output?.jsonData)
     setLoading(false);
-    
+      
+      await app.currentUser.refreshAccessToken();
+      if(!app.currentUser){
+        navigate('/inan-rjsf/login');
+      }
 
-   
-
- 
     } catch (error) {
       console.error('Error fetching products:', error);
       setLoading(false);
     }
   };
+
   const onSubmit = async ({ formData }) => {
-  
     const functionName = "updateCart";
-    const args=[app.currentUser.id, formData?.products]
+    const args = [app.currentUser.id, formData?.products];
     try {
-   await app.currentUser.callFunction(functionName, ...args);
-
-  
+      await app.currentUser.callFunction(functionName, ...args);
       fetchData();
-       // Handle form submission logic here
     } catch (error) {
       const errorMessage = error.error;
       const uppercasedErrorMessage = errorMessage.charAt(0).toUpperCase() + errorMessage.slice(1);
-    alert(uppercasedErrorMessage);
+      alert(uppercasedErrorMessage);
     }
-
   };
-  const onChange =  async ({ formData }) => {
-  //   console.log("Form data submitted:", formData?.products);
+
+  const onChange = async ({ formData }) => {
     const functionName = "updateCart";
-    const args=[app.currentUser.id, formData?.products]
+    const args = [app.currentUser.id, formData?.products];
     try {
-      
-      
-   await app.currentUser.callFunction(functionName, ...args);
-
-   console.log(formData.products)
-  } catch (error) {
-    const errorMessage = error.error;
-    const uppercasedErrorMessage = errorMessage.charAt(0).toUpperCase() + errorMessage.slice(1);
-  alert(uppercasedErrorMessage);
-  }
-  
+      await app.currentUser.callFunction(functionName, ...args);
+      console.log(formData.products);
+    } catch (error) {
+      const errorMessage = error.error;
+      const uppercasedErrorMessage = errorMessage.charAt(0).toUpperCase() + errorMessage.slice(1);
+      alert(uppercasedErrorMessage);
+    }
   };
-  const onSubmit2 = async ( ) => {
-    const user= await app.currentUser.refreshCustomData()
 
+  const onSubmit2 = async () => {
+    const user = await app.currentUser.refreshCustomData();
     const functionName = "ToTempCart";
-    const args=[app.currentUser.customData ,user.cart]
+    const args = [app.currentUser.customData, user.cart];
     try {
-      
-   await app.currentUser.callFunction(functionName, ...args);
-  
+      await app.currentUser.callFunction(functionName, ...args);
       fetchData();
-       // Handle form submission logic here
     } catch (error) {
       const errorMessage = error.error;
       const uppercasedErrorMessage = errorMessage.charAt(0).toUpperCase() + errorMessage.slice(1);
-    alert(uppercasedErrorMessage);
+      alert(uppercasedErrorMessage);
     }
-
   };
   // const jsonSchema22 = {
     
@@ -231,15 +220,17 @@ const [jsonSchema2 ,setjsonSchema2] = useState([]);
        
   //     },
   //   };
-
   return (
     <>
-      {loading ? (
-        <div>dong</div>
-      ) : (
-        <>
+    {loading ? (
+      <div className="flex items-center justify-center h-screen">
+        <div className="text-gray-600 text-lg">Loading...</div>
+      </div>
+    ) : (
+      <>
+        <div className="flex justify-center">
           <Form
-            className='my-form'
+            className="w-full max-w-md p-8 bg-white rounded-lg shadow-lg"
             formData={products}
             validator={validator}
             schema={jsonSchema}
@@ -247,23 +238,26 @@ const [jsonSchema2 ,setjsonSchema2] = useState([]);
             onSubmit={onSubmit}
             onChange={onChange}
           />
-       
-           {price.totalValue===0 ? (
-          <></>
-        ) : (
-          <Form
-          className='my-form'
-          validator={validator}
-          schema={jsonSchema2}
-          uiSchema={uiSchema2}
-          formData={price}
-          onSubmit={onSubmit2}
-        />
+        </div>
+  
+        {price?.totalValue !== 0 && (
+          <div className="flex justify-center mt-8">
+            <Form
+              className="w-full max-w-md p-8 bg-white rounded-lg shadow-lg"
+              validator={validator}
+              schema={jsonSchema2}
+              uiSchema={uiSchema2}
+              formData={price}
+              onSubmit={onSubmit2}
+            />
+          </div>
         )}
-        </>
-      )}
-    </>
+      </>
+    )}
+  </>
+  
   );
       };  
+
 
 export default MyForm;

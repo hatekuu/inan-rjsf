@@ -19,6 +19,7 @@ const Login = () => {
         navigate('/inan-rjsf/products/Mycart');
       } else if (app.currentUser?.customData?.type === "Admin") {
         navigate('/inan-rjsf/admin/addproduct')
+      
       }
     } catch (error) {
      alert(error.error)
@@ -39,6 +40,7 @@ const Login = () => {
         navigate('/inan-rjsf/products/Mycart');
       } else if (user.customData?.type === "Admin") {
         navigate('/inan-rjsf/admin/addproduct')
+        console.log(app.currentUser)
       }
      else if (user.customData?.type === "Manager") {
       navigate('/inan-rjsf/manager')
@@ -52,21 +54,6 @@ const Login = () => {
     }
   };
 
-  // const handleGoogleAuth = async () => {
-  //   try {
-  //     const redirectUrl = "http://localhost:3000/inan-rjsf/api/auth/callback/google";
-  //     const credentials = Realm.Credentials.google({ redirectUrl });
-  //     const user = await app.logIn(credentials);
-
-  //     if (user.customData?.type === "normal") {
-  //       navigate('/inan-rjsf/products');
-  //     } else if (user.customData?.type === "Admin") {
-  //       navigate('/inan-rjsf/admin/addproduct')
-  //     }
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="bg-white p-8 rounded shadow-md w-96 border border-gray-300">
@@ -108,20 +95,7 @@ const Login = () => {
         <p className="mt-4 text-center">
           Quên mật khẩu? <Link to="/inan-rjsf/resetpassword" className="text-indigo-500">Tìm mật khẩu ngay!</Link>
         </p>
-        {/*  <div className="flex items-center justify-center mt-4  mb-4">
-          <span className="mr-4 border-b w-1/4"></span>
-          <p>Hoặc</p>
-          <span className="ml-4 border-b w-1/4"></span>
-        </div>
-       <button
-          className={`w-full bg-indigo-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ${
-            isLoading ? 'opacity-50 cursor-not-allowed' : ''
-          }`}
-          onClick={handleGoogleAuth}
-          disabled={isLoading}
-        >
-          Đăng nhập bằng Google
-        </button>*/}
+      
       </div>
     </div>
   );

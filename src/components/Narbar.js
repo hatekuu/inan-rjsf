@@ -52,6 +52,13 @@ const Navbar = () => {
                   >
                     Đăng ký
                   </Link>
+                 
+                  <Link
+                    to="/inan-rjsf/loginwithgoogle"
+                    className="block px-4 py-2 text-indigo-500 hover:bg-gray-100 whitespace-nowrap"
+                  >
+                    Đăng nhập bằng google
+                  </Link>
                 </>
               ) : (
                 <div>
