@@ -3,9 +3,10 @@ import React from 'react';
 import Form from '@rjsf/core';
 import AjvValidator from '@rjsf/validator-ajv8';
 
-const ProductForm = ({ onSubmit, onError }) => {
+const ProductForm = ({ onSubmit, onError ,isLoading}) => {
   const schema = {
     type: 'object',
+    title:"Form thêm sản phẩm",
     properties: {
       productName: { type: 'string', title: 'Tên sản phẩm' },
       productType: {
@@ -14,16 +15,16 @@ const ProductForm = ({ onSubmit, onError }) => {
         enum: ['In 2d', 'In 3d'],
         enumNames: ['In 2D', 'In 3D'],
       },
-      purchasePrice: { type: 'number', title: 'Chi phí sản xuất' },
+      purchasePrice: { type: 'number', title: 'Chi phí sản xuất,giá mua(Nghìn đồng)' },
       sellingPrice: { type: 'number', title: 'Giá bán' },
       quantity: { type: 'integer', title: 'Số lượng' },
     },
     required: ['productName', 'productType', 'purchasePrice', 'sellingPrice', 'quantity'],
   };
   const uiSchema = {
-    productName: { 'ui:classNames': 'text-gray-900' },
+ 
     productType: {
-      'ui:classNames': 'text-gray-900',
+    
       'ui:widget': 'select',
       'ui:options': {
         enumOptions: [
@@ -32,9 +33,7 @@ const ProductForm = ({ onSubmit, onError }) => {
         ],
       },
     },
-    purchasePrice: { 'ui:classNames': 'text-gray-900' },
-    sellingPrice: { 'ui:classNames': 'text-gray-900' },
-    quantity: { 'ui:classNames': 'text-gray-900' },
+  
   };
   
 
@@ -44,7 +43,7 @@ const ProductForm = ({ onSubmit, onError }) => {
   };
 
   return (
-    <div className="max-w-md mx-auto mt-8 p-4 bg-white rounded shadow">
+    <div className=" max-w-xl mx-auto mt-8 p-9 bg-white rounded shadow">
       <Form
         schema={schema}
         uiSchema={uiSchema}
@@ -58,7 +57,7 @@ const ProductForm = ({ onSubmit, onError }) => {
             type="submit"
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
           >
-            Submit
+             {isLoading ? 'Đang nhập...' : 'Nhập kho'}
           </button>
         </div>
       </Form>

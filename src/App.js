@@ -2,8 +2,6 @@
 import React,{lazy, Suspense} from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Navbar  from './components/Narbar';
-import * as Realm from 'realm-web';
-import { GoogleLogin } from '@react-oauth/google';
 const Home  =lazy(()=> import ('./routers/home'))
 const Login  =lazy(()=> import ('./routers/userConfig/interact/login'))
 const Register  =lazy(()=> import ('./routers/userConfig/interact/register'))
@@ -16,12 +14,13 @@ const AddProduct  =lazy(()=> import ( './admin/products'))
 const  UserCart =lazy(()=> import ('./routers/cart'))
 const ProductForm =lazy(()=> import ( './FormComponent'))
 const Managerhome=lazy(()=> import ('./manager/managerhome'))
+
 function App() {
   return (
 <Router>
       <Suspense fallback={<div>Loading...</div>}>
-        {/*  <Navbar /> */}
-      
+        {/* */}
+        <Navbar />  
         <Routes>
           <Route path="/inan-rjsf/manager" element={<Managerhome />} />
           <Route path="/inan-rjsf/admin/addproduct" element={<AddProduct />} />
@@ -40,21 +39,21 @@ function App() {
     </Router>
 );
 }
-const handleGoogleLoginSuccess = async (credentialResponse) => {
-  console.log(credentialResponse);
-  const app = new Realm.App({ id: process.env.REACT_APP_KEY });
-  const code=credentialResponse?.credential
-  const credentials = Realm.Credentials.google({
-    authCode:code
-  });
-  console.log(credentials);
+// const handleGoogleLoginSuccess = async (credentialResponse) => {
+//   console.log(credentialResponse);
+//   const app = new Realm.App({ id: process.env.REACT_APP_KEY });
+//   const code=credentialResponse?.credential
+//   const credentials = Realm.Credentials.google({
+//     authCode:code
+//   });
+//   console.log(credentials);
 
-  try {
-    const user = await app.logIn(credentials);
-    alert(`Logged in with id: ${user.id}`);
-    // If you need to do something with the user after logging in, you can do it here
-  } catch (error) {
-    console.error("Error logging in:", error.error);
-  }
-};
+//   try {
+//     const user = await app.logIn(credentials);
+//     alert(`Logged in with id: ${user.id}`);
+//     // If you need to do something with the user after logging in, you can do it here
+//   } catch (error) {
+//     console.error("Error logging in:", error.error);
+//   }
+// };
 export default App;

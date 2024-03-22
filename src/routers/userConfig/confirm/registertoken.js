@@ -45,33 +45,14 @@ const RegisterToken = () => {
     // Đặt trạng thái nút thành true khi nút được nhấn
     setButtonPressed(true);
   };
-  
-//   const handleButtonClick2 = async () => {
-//     // Đặt trạng thái nút thành true khi nút được nhấn
-//     await app.emailPasswordAuth.sendResetPasswordEmail({ email });
-//   };
-//  // const handleGoogleAuth = async () => {
-  //   try {
-  //     const redirectUrl = "http://localhost:3000/inan-rjsf/api/auth/callback/google";
-  //     const credentials = Realm.Credentials.google({ redirectUrl });
-  //     const user = await app.logIn(credentials);
 
-  //     if (user.customData?.type === "normal") {
-  //       navigate('/inan-rjsf/products');
-  //     } else if (user.customData?.type === "Admin") {
-  //       navigate('/inan-rjsf/admin/addproduct')
-  //     }
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
   return (
    <>
     {isconfirm?(
    <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 max-w-sm mx-auto">
    <p className="text-lg text-green-600 font-bold mb-4">Tài khoản đã được xác thực thành công</p>
    <p className="text-sm text-gray-600 mb-4">Bạn có muốn trở về trang chủ?</p>
-   <a href="https://www.example.com" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:text-blue-700 font-bold">Ấn vào đây</a>
+   <a href="https://sites.google.com/view/cpkd/" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:text-blue-700 font-bold">Ấn vào đây</a>
  </div>
     ):(
       <div className="min-h-screen flex items-center justify-center">

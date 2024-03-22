@@ -13,16 +13,23 @@ const Login = () => {
     fetchData();
   }, []); // Empty dependency array means it runs once on mount
 
+  useEffect(() => {
+    try {
+      Realm.handleAuthRedirect();
+    } catch (error) {
+      
+    }
+  }, []);
+
   const fetchData = async () => {
     try {
       if (app.currentUser?.customData?.type === "normal") {
         navigate('/inan-rjsf/products/Mycart');
       } else if (app.currentUser?.customData?.type === "Admin") {
-        navigate('/inan-rjsf/admin/addproduct')
-      
+        navigate('/inan-rjsf/admin/addproduct');
       }
     } catch (error) {
-     alert(error.error)
+      alert(error.error);
     }
   };
 
@@ -39,18 +46,23 @@ const Login = () => {
       if (user.customData?.type === "normal") {
         navigate('/inan-rjsf/products/Mycart');
       } else if (user.customData?.type === "Admin") {
-        navigate('/inan-rjsf/admin/addproduct')
-        console.log(app.currentUser)
+        navigate('/inan-rjsf/admin/addproduct');
+        console.log(app.currentUser);
+      } else if (user.customData?.type === "Manager") {
+        navigate('/inan-rjsf/manager');
       }
-     else if (user.customData?.type === "Manager") {
-      navigate('/inan-rjsf/manager')
-    }
     } catch (error) {
       const errorMessage = error.error;
       const uppercasedErrorMessage = errorMessage.charAt(0).toUpperCase() + errorMessage.slice(1);
-    alert(uppercasedErrorMessage);
+      alert(uppercasedErrorMessage);
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  const handleKeyPress = (event) => {
+    if (event.key === 'Enter') {
+      loginEmailPassword();
     }
   };
 
@@ -67,6 +79,7 @@ const Login = () => {
             type="text"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            onKeyDown={handleKeyPress}
           />
         </div>
         <div className="mb-4">
@@ -78,6 +91,7 @@ const Login = () => {
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            onKeyDown={handleKeyPress} // Call handleKeyPress when Enter is pressed
           />
         </div>
         <button
@@ -95,11 +109,9 @@ const Login = () => {
         <p className="mt-4 text-center">
           Quên mật khẩu? <Link to="/inan-rjsf/resetpassword" className="text-indigo-500">Tìm mật khẩu ngay!</Link>
         </p>
-      
       </div>
     </div>
   );
-  
-  
-        };  
+};
+
 export default Login;

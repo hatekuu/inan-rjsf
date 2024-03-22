@@ -19,7 +19,7 @@
 }
 
 .my-form input {
-  width: 100%;
+  width: auto;
   height: 60px; /* Update the height to 40px for consistency */
   font-size: 25px;
   padding: 12px;
@@ -50,13 +50,14 @@
 }
 
 .my-form .btn-add::after {
-  content: '✚'; /* Unicode character for 'plus' */
+ /* content: '✚'; /* Unicode character for 'plus' */
+  content: '✚';
   display: inline-block;
   margin-right: 60px;
   margin-left: 60px;
   width: 10px;
   height: 15px;
-
+  
   color: #ffffff;
   border: none;
   border-radius: 5px;
@@ -71,7 +72,7 @@
 }
 
 
-.my-form .sumit,
+
 .my-form .btn-add {
   background-color: #4caf50;
   color: white;
@@ -83,7 +84,7 @@
   transition: background-color 0.3s ease;
 }
 
-.my-form .sumit:hover,
+
 .my-form .btn-add:hover {
   background-color: #45a049;
 }

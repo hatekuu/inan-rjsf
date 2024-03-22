@@ -1,79 +1,64 @@
-// ProductForm.js
 import React from 'react';
 import Form from '@rjsf/core';
 import AjvValidator from '@rjsf/validator-ajv8';
+import ArrayFieldTemplate from './custom';
 
-const ProductForm = ( ) => {
+const ProductForm = () => {
   const schema = {
-    "type": "object",
-    "properties": {
-      
-      "items": {
-        "title":"mã giảm giá",
-        "type": "array",
-        "items": {
-          "type": "object",
-          "anyOf": [
-            {
-              "properties": {
-                "foo": {
-                  "type": "string"
-                }
-              }
-            },
-            {
-              "properties": {
-                "bar": {
-                  "type": "string"
-                }
-              }
-            }
-          ]
-        }
-      }
-    },
-    "anyOf": [
-      {
-        "title": "Không sử dụng mã giảm giá",
-         "type":"string"
-      },
-      {
-        "title": "Sử dụng mã giảm giá",
-        "properties": {
-          "discount": {
-            "enum": [0.1, 0.2]
-          }
+    title: 'Todo',
+    type: 'object',
+    properties: {
+      todos: {
+        type: 'array',
+        items: {
+          type: 'string',
         },
-        "required": ["discount"]
-      }
-    ]
+      },
+    },
   };
-  
 
   const uiSchema = {
-
-    products: {
-      "ui:options": {
-        orderable: false,
-      },
+    todos: {
       items: {
- 
+        'ui:options': {
+          addable: true,
+          removable: true,
+        },
       },
     },
-
   };
+
   const onSubmit = ({ formData }) => {
     console.log('Form submitted with data:', formData);
   };
+
+  const handleClick = (value) => {
+    console.log('Adding new item with value:', value);
+    // Your logic here
+  };
+
+  const handleRemove = (index) => {
+    console.log('Removing item at index:', index);
+    // Your logic here
+  };
+
   return (
     <div>
       <Form
         schema={schema}
-
- uiSchema={uiSchema}
+        uiSchema={uiSchema}
         onSubmit={onSubmit}
-     
         validator={AjvValidator}
+        templates={{
+          ArrayFieldTemplate: (props) => (
+            <ArrayFieldTemplate
+              {...props}
+              handleClick={(value) => handleClick(value)} // Pass handleClick function to ArrayFieldTemplate
+              onReorderClick={(oldIndex, newIndex) => console.log('Reordering item:', oldIndex, newIndex)}
+              onDropIndexClick={handleRemove}
+            />
+          ),
+        }}
       />
     </div>
   );
