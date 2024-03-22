@@ -14,7 +14,7 @@ const [message,setMessage]= useState([])
   const handleRemoveItem = (index) => () => {
 
     props.items[index].onDropIndexClick(index)();
-    props.handleRemove()
+   props.handleRemove()
   };
 
   const handleAdd = async () => {
@@ -110,7 +110,7 @@ const [message,setMessage]= useState([])
                 </div>
               )}
             </div>
-            <button className="mt-4 px-4 py-2 bg-blue-500 text-white rounded" onClick={() => { props.handleClick(); handleAdd(); }}>Thêm</button>
+            <button className="mt-4 px-4 py-2 bg-blue-500 text-white rounded" onClick={() => { props.handleClick(); handleAdd();} }>Thêm</button>
             <button className="mt-4 px-4 py-2 bg-blue-500 text-white rounded" onClick={() => setShowModal(false)}>Đóng</button>
           </div>
         </div>

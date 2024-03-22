@@ -11,47 +11,47 @@ const MyForm = () => {
  
     const app = new Realm.App({ id: process.env.REACT_APP_KEY });
     const [products, setProducts] = useState([]);
-    const [leng, setLeng] = useState('');
+    const [leng, setLeng] = useState(0);
+    const [leng2, setLeng2] = useState(2);
     const [jsonSchema, setjsonSchema] = useState([]);
     const [uiSchema, setuiSchema] = useState([]);
     const [price, setPrice]= useState([])
-  const [jsonSchema2 ,setjsonSchema2] = useState([]);
-  const [uiSchema2, setuiSchema2] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [isOpen2, setIsOpen2] = useState(false);
- const [message2,setMessage2]=useState([])
-const [val,setVal]=useState(null)
-  const navigate = useNavigate();
+    const [jsonSchema2 ,setjsonSchema2] = useState([]);
+    const [uiSchema2, setuiSchema2] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [isOpen2, setIsOpen2] = useState(false);
+    const [message2, setMessage2] = useState([]);
+    const [val, setVal] = useState(null);
+    const navigate = useNavigate();
 
-  useEffect(() => {
-   
-    fetchData();
-   
-  }, [leng]);
-  
-  const fetchData = async () => {
-    try {
-      if(!app?.currentUser?.accessToken){
-        navigate('/inan-rjsf/login');}
-        else{
-      await app?.currentUser?.refreshAccessToken();
-   
-       const functionName = "form";
-      const findCart = await app?.currentUser?.callFunction(functionName);
+    const fetchData = async () => {
+        try {
+            if (!app?.currentUser?.accessToken) {
+                navigate('/inan-rjsf/login');
+            } else {
+                await app?.currentUser?.refreshAccessToken();
+                const functionName = "form";
+                const findCart = await app?.currentUser?.callFunction(functionName);
+                console.log(findCart[0]?.public?.input?.jsonData?.products?.length)
+                setLeng( ()=>  findCart[0]?.public?.input?.jsonData?.products?.length);
+                setProducts(findCart[0]?.public?.input?.jsonData);
+                setjsonSchema(findCart[0]?.public?.input?.jsonSchema);
+                setuiSchema(findCart[0]?.public?.input?.uiSchema);
+                setjsonSchema2(findCart[0]?.public?.output?.jsonSchema);
+                setuiSchema2(findCart[0]?.public?.output?.uiSchema);
+                setPrice(findCart[0]?.public?.output?.jsonData);
+                setLoading(false);
+            }
+        } catch (error) {
+            console.error('Error fetching products:', error);
+            setLoading(false);
+        }
+    };
+
+    useEffect( () => {
       
-      setLeng(findCart[0]?.public?.input?.jsonData?.products?.length)
-      setProducts(findCart[0]?.public?.input?.jsonData)
-  setjsonSchema(findCart[0]?.public?.input?.jsonSchema)
-  setuiSchema(findCart[0]?.public?.input?.uiSchema)
- setjsonSchema2(findCart[0]?.public?.output?.jsonSchema)
- setuiSchema2(findCart[0]?.public?.output?.uiSchema)
-setPrice(findCart[0]?.public?.output?.jsonData)
-setLoading(false);}
-    } catch (error) {
-      console.error('Error fetching products:', error);
-      setLoading(false);
-    }
-  };
+        fetchData()
+    },[leng]); // Add dependencies
 
   const onSubmit = async ({ formData }) => {
     const functionName = "updateCart";
@@ -59,6 +59,7 @@ setLoading(false);}
     try {
      const result= await app.currentUser?.callFunction(functionName, ...args);
      if(result?.message){
+     
       setIsOpen2(true);
       setMessage2(result?.message)
       setVal(1)
@@ -75,7 +76,7 @@ setLoading(false);}
   };
   const onChange = async ({ formData }) => {
 
-        
+  
        const functionName = "updateCart";
        try {
          const args = [app?.currentUser?.id, formData?.products];
@@ -91,11 +92,14 @@ setLoading(false);}
 
   const handleClick = async () => {
     console.log("add")
-   fetchData()
   
+   fetchData()
+    setLeng(leng+1)
   }
   const handleRemove = async () => {
     console.log("remove")
+
+    setLeng(leng-1)
     fetchData()
   };
   const onSubmit2 = async () => {
@@ -132,6 +136,7 @@ setLoading(false);}
     ) : (
       <>
         <div className="flex justify-center">
+        {products &&(
           <Form
             className="w-full max-w-md p-8 bg-white rounded-lg shadow-lg"
             formData={products}
@@ -144,13 +149,13 @@ setLoading(false);}
               ArrayFieldTemplate: (props) => (
                 <ArrayFieldTemplate
                   {...props}
-                  handleClick={handleClick}
-                  onReorderClick={(oldIndex, newIndex) => console.log('Reordering item:', oldIndex, newIndex)}
-                  handleRemove={handleRemove}
+                handleClick={handleClick}
+                  // onReorderClick={(oldIndex, newIndex) => console.log('Reordering item:', oldIndex, newIndex)}
+                 handleRemove={handleRemove}
                 />
               ),
             }}
-          />
+          />)}
         
         </div>
   
