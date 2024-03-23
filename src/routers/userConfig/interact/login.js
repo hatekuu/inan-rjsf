@@ -70,7 +70,9 @@ const Login = () => {
       loginEmailPassword();
     }
   };
-
+const closeModal = ()=>{
+  setIsOpen2(false)
+}
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="bg-white p-8 rounded shadow-md w-96 border border-gray-300">
@@ -115,7 +117,7 @@ const Login = () => {
           Quên mật khẩu? <Link to="/inan-rjsf/resetpassword" className="text-indigo-500">Tìm mật khẩu ngay!</Link>
         </p>
       </div>
-      <Modal />
+      <Modal isOpen={isOpen2} onClose={closeModal} message={message2} array={0} />
     </div>
   );
 };
