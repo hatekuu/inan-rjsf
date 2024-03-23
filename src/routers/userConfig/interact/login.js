@@ -1,11 +1,13 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import * as Realm from 'realm-web';
-
+import Modal from '../../../components/Modal';
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [isOpen2, setIsOpen2] = useState(false);
+  const [message2, setMessage2] = useState([]);
   const navigate = useNavigate();
   const app = useMemo(() => new Realm.App({ id: process.env.REACT_APP_KEY }), []);
 
@@ -29,7 +31,8 @@ const Login = () => {
         navigate('/inan-rjsf/admin/addproduct');
       }
     } catch (error) {
-      alert(error.error);
+      setIsOpen2(true)
+      setMessage2(error.error)
     }
   };
 
@@ -53,8 +56,10 @@ const Login = () => {
       }
     } catch (error) {
       const errorMessage = error.error;
-      const uppercasedErrorMessage = errorMessage.charAt(0).toUpperCase() + errorMessage.slice(1);
-      alert(uppercasedErrorMessage);
+     
+      setIsOpen2(true)
+      setMessage2(errorMessage)
+      
     } finally {
       setIsLoading(false);
     }
@@ -110,6 +115,7 @@ const Login = () => {
           Quên mật khẩu? <Link to="/inan-rjsf/resetpassword" className="text-indigo-500">Tìm mật khẩu ngay!</Link>
         </p>
       </div>
+      <Modal />
     </div>
   );
 };

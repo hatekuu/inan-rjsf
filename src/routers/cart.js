@@ -143,7 +143,7 @@ fetchData()
       setIsOpen2(true);
       setMessage2(result?.message)
       setVal(0)
-  
+      fetchData();
   
     } catch (error) {
  
