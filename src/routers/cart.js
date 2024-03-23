@@ -170,7 +170,7 @@ fetchData()
     ) : (
       <>
         <div className="flex justify-center">
-        {products &&(
+        {products &&jsonSchema && uiSchema &&(
           <>
           <Form
             className="w-full max-w-md p-8 bg-white rounded-lg shadow-lg"
