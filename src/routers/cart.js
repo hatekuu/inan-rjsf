@@ -17,6 +17,7 @@ const MyForm = () => {
     const [uiSchema2, setuiSchema2] = useState([]);
     const [loading, setLoading] = useState(true);
     const [btloading, setBtLoading] = useState(false);
+    const[search,setSearch]=useState('')
     const [isOpen2, setIsOpen2] = useState(false);
     const [message2, setMessage2] = useState([]);
     const [val, setVal] = useState(null);
@@ -30,7 +31,7 @@ const MyForm = () => {
                 await app?.currentUser?.refreshAccessToken();
                 const functionName = "form";
                 const findCart = await app?.currentUser?.callFunction(functionName);
-                console.log(findCart[0]?.public?.input?.jsonData?.products?.length)
+            
              
                 setProducts(findCart[0]?.public?.input?.jsonData);
                 setjsonSchema(findCart[0]?.public?.input?.jsonSchema);
@@ -71,8 +72,25 @@ const MyForm = () => {
 //       setIsOpen2(true);
 //  setMessage2(errorMessage)
 //     }
+const FunctionName = 'AddToCart';
+const args=[search,app?.currentUser?.id]
 
+
+if (search !== "") {
+try {
+ const result=  await app?.currentUser?.callFunction(FunctionName,...args);
 fetchData()
+   setIsOpen2(true)
+   setMessage2(result?.message)
+   setVal(0)
+ setShowModal(false);
+ setSearch('')
+
+} catch (error) {
+  console.log(error)
+}
+}else(fetchData())
+          
 
   };
   const onChange = async ({ formData }) => {
@@ -90,24 +108,7 @@ fetchData()
      
   };
   const handleClick = async (search) => {
-    const FunctionName = 'AddToCart';
-    const args=[search,app?.currentUser?.id]
-    setBtLoading(true)
-    fetchData()
-    if (search !== "") {
-    try {
-     const result=  await app?.currentUser?.callFunction(FunctionName,...args);
-  
-       setIsOpen2(true)
-       setMessage2(result?.message)
-       setVal(0)
-     setShowModal(false);
-     
-    
-    } catch (error) {
-      console.log(error)
-    }finally{setBtLoading(false)}
-    }
+   setSearch(search)
   };
 
   // const handleClick = async () => {
