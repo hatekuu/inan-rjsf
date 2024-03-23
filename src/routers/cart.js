@@ -118,7 +118,7 @@ fetchData()
   // }
   const handleRemove = async () => {
     console.log("remove")
-
+      fetchData()
   };
   const onSubmit2 = async () => {
     const user = await app.currentUser.refreshCustomData();
@@ -178,7 +178,7 @@ fetchData()
                 /> 
               ),
             }}
-          /> <button>{btloading?'dang them..':"them"}</button></>)}
+          /> </>)}
         
         </div>
   
