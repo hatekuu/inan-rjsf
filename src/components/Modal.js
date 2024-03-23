@@ -6,9 +6,10 @@ const Modal = ({ isOpen, onClose, message,array}) => {
   if (!isOpen) return null;
  if(array===1)return(
     <div className="modal-overlay" onClick={onClose}>
-    <div className="modal-content" onClick={e => e.stopPropagation()}>
+    <div className="modal-content" >
+
       <div className="close-wrapper">
-        <button className="close-button" onClick={onClose}>X</button>
+        <button className="close-button" onClick={() => {onClose(); window.location.reload(true)}}>X</button>
       </div>
       {message?.map((message,index)=>(
         <div key={index}>

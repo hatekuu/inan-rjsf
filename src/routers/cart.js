@@ -89,7 +89,12 @@ fetchData()
 } catch (error) {
   console.log(error)
 }
-}else(fetchData())
+}else{
+  
+
+ 
+  fetchData()
+}
           
 
   };
@@ -99,8 +104,15 @@ fetchData()
        const functionName = "updateCart";
        try {
          const args = [app?.currentUser?.id, formData?.products];
-          await app?.currentUser?.callFunction(functionName, ...args);
-     
+         const response= await app?.currentUser?.callFunction(functionName, ...args);
+         if(response?.message.length>0){
+         
+          fetchData()
+          setMessage2(response.message)
+          setIsOpen2(true)
+          setVal(1)
+         
+        }
        } catch (error) {
          console.log(error);
          
@@ -132,19 +144,22 @@ fetchData()
       setMessage2(result?.message)
       setVal(0)
   
-      fetchData();
+  
     } catch (error) {
  
       alert(error.error);
       setMessage2(error.error)
       setIsOpen2(true)
+    
     }
   };
 
 
 
   const closeModal = () => {
+  
     setIsOpen2(false);
+
   };
   return (
     <>
