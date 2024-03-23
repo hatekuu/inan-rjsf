@@ -23,11 +23,15 @@ const MyForm = () => {
     const [val, setVal] = useState(null);
     const navigate = useNavigate();
 
+ 
+
+
+
     const fetchData = async () => {
+      if(!app.currentUser.accessToken) {navigate('/inan-rjsf/login');}
+      if (app.currentUser.accessToken) {await app?.currentUser?.refreshAccessToken();}
         try {
-            if (!app?.currentUser?.accessToken) {
-                navigate('/inan-rjsf/login');
-            } else {
+           
                 await app?.currentUser?.refreshAccessToken();
                 const functionName = "form";
                 const findCart = await app?.currentUser?.callFunction(functionName);
@@ -40,7 +44,7 @@ const MyForm = () => {
                 setuiSchema2(findCart[0]?.public?.output?.uiSchema);
                 setPrice(findCart[0]?.public?.output?.jsonData);
                 setLoading(false);
-            }
+            
         } catch (error) {
             console.error('Error fetching products:', error);
             setLoading(false);
