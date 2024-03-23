@@ -6,19 +6,17 @@ import  validator from '@rjsf/validator-ajv8';
 import * as Realm from 'realm-web';
 import ArrayFieldTemplate from '../components/ArrayFieldTemplate';
 import Modal from '../components/Modal';
-
 const MyForm = () => {
- 
     const app = new Realm.App({ id: process.env.REACT_APP_KEY });
     const [products, setProducts] = useState([]);
-    const [leng, setLeng] = useState(0);
-    const [leng2, setLeng2] = useState(2);
+    const [showModal,setShowModal]=useState(false)
     const [jsonSchema, setjsonSchema] = useState([]);
     const [uiSchema, setuiSchema] = useState([]);
     const [price, setPrice]= useState([])
     const [jsonSchema2 ,setjsonSchema2] = useState([]);
     const [uiSchema2, setuiSchema2] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [btloading, setBtLoading] = useState(false);
     const [isOpen2, setIsOpen2] = useState(false);
     const [message2, setMessage2] = useState([]);
     const [val, setVal] = useState(null);
@@ -33,7 +31,7 @@ const MyForm = () => {
                 const functionName = "form";
                 const findCart = await app?.currentUser?.callFunction(functionName);
                 console.log(findCart[0]?.public?.input?.jsonData?.products?.length)
-                setLeng( ()=>  findCart[0]?.public?.input?.jsonData?.products?.length);
+             
                 setProducts(findCart[0]?.public?.input?.jsonData);
                 setjsonSchema(findCart[0]?.public?.input?.jsonSchema);
                 setuiSchema(findCart[0]?.public?.input?.uiSchema);
@@ -51,28 +49,31 @@ const MyForm = () => {
     useEffect( () => {
       
         fetchData()
-    },[leng]); // Add dependencies
+    },[]); // Add dependencies
 
   const onSubmit = async ({ formData }) => {
-    const functionName = "updateCart";
-    const args = [app?.currentUser?.id, formData?.products];
-    try {
-     const result= await app.currentUser?.callFunction(functionName, ...args);
-     if(result?.message){
+//     const functionName = "updateCart";
+//     const args = [app?.currentUser?.id, formData?.products];
+  
+//     try {
+//      const result= await app.currentUser?.callFunction(functionName, ...args);
+//      if(result?.message){
      
-      setIsOpen2(true);
-      setMessage2(result?.message)
-      setVal(1)
-     }
-     fetchData();
+//       setIsOpen2(true);
+//       setMessage2(result?.message)
+//       setVal(1)
+//      }
+     
+//      fetchData();
       
-    } catch (error) {
-      const errorMessage = error.error;
-      setIsOpen2(true);
- setMessage2(errorMessage)
- 
-     
-    }
+//     } catch (error) {
+//       const errorMessage = error.error;
+//       setIsOpen2(true);
+//  setMessage2(errorMessage)
+//     }
+
+fetchData()
+
   };
   const onChange = async ({ formData }) => {
 
@@ -88,19 +89,36 @@ const MyForm = () => {
        }
      
   };
+  const handleClick = async (search) => {
+    const FunctionName = 'AddToCart';
+    const args=[search,app?.currentUser?.id]
+    setBtLoading(true)
+    fetchData()
+    if (search !== "") {
+    try {
+     const result=  await app?.currentUser?.callFunction(FunctionName,...args);
   
+       setIsOpen2(true)
+       setMessage2(result?.message)
+       setVal(0)
+     setShowModal(false);
+     
+    
+    } catch (error) {
+      console.log(error)
+    }finally{setBtLoading(false)}
+    }
+  };
 
-  const handleClick = async () => {
-    console.log("add")
+  // const handleClick = async () => {
+  //   console.log("add")
   
-   fetchData()
-    setLeng(leng+1)
-  }
+  //  fetchData()
+  //   setLeng(leng+1)
+  // }
   const handleRemove = async () => {
     console.log("remove")
 
-    setLeng(leng-1)
-    fetchData()
   };
   const onSubmit2 = async () => {
     const user = await app.currentUser.refreshCustomData();
@@ -137,6 +155,7 @@ const MyForm = () => {
       <>
         <div className="flex justify-center">
         {products &&(
+          <>
           <Form
             className="w-full max-w-md p-8 bg-white rounded-lg shadow-lg"
             formData={products}
@@ -148,14 +167,18 @@ const MyForm = () => {
             templates={{
               ArrayFieldTemplate: (props) => (
                 <ArrayFieldTemplate
+           
+                showModal2={showModal}
+                
                   {...props}
-                handleClick={handleClick}
+                handleClick={(search) =>handleClick(search)}
+                isLoading={btloading}
                   // onReorderClick={(oldIndex, newIndex) => console.log('Reordering item:', oldIndex, newIndex)}
                  handleRemove={handleRemove}
-                />
+                /> 
               ),
             }}
-          />)}
+          /> <button>{btloading?'dang them..':"them"}</button></>)}
         
         </div>
   

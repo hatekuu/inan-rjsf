@@ -1,26 +1,15 @@
 import React, { useState,useEffect } from 'react';
 import * as Realm from 'realm-web';
-
-const ArrayFieldTemplate = (props) => {
+import Modal from './Modal';
+const Add = () => {
   const app = new Realm.App({ id: process.env.REACT_APP_KEY });
 
   const [showModal, setShowModal] = useState(false);
   const [search, setSearch] = useState('');
   const [suggestions, setSuggestions] = useState([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
- useEffect(()=>{
- setShowModal(props.showModal2)
-  
- },[props])
-
-  const handleRemoveItem = (index) => () => {
-
-    props.items[index].onDropIndexClick(index)();
-   props.handleRemove()
-  };
-
- 
-
+ const [message,setMessage]=useState('')
+  const [isOpen,setIsOpen]=useState(false)
   const handleChange = async (e) => {
 
     const FunctionName = 'autoComplete';
@@ -35,30 +24,36 @@ const ArrayFieldTemplate = (props) => {
     }
   };
 
+  const handleClick = async () => {
+    const FunctionName = 'AddToCart';
+    const args=[search,app?.currentUser?.id]
+    if (search !== "") {
+    try {
+      
+     const result=  await app?.currentUser?.callFunction(FunctionName,...args);
+       setIsOpen(true)
+       setMessage(result?.message)
+     setShowModal(false);
+     setSearch('')
+    
+window.location.reload(true)
+
+    } catch (error) {
+      console.log(error)
+    }
+    }
+  };
   const handleSuggestionClick = async (name) => {
 
     setShowSuggestions(false)
     setSearch(name)
   };
-
+const closeModal =()=>{
+    setIsOpen(false)
+}
  
   return (
     <div>
-      <div>
-        {props.items.map((element, index) => (
-          <div key={index}>
-            <div className="flex-grow">{element.children}</div>
-            <button
-              type="button"
-              className="ml-2 px-2 py-1 bg-red-500 text-white rounded"
-              onClick={handleRemoveItem(index)}
-            >
-              Xóa sản phẩm
-            </button>
-          </div>
-        ))}
-      </div>
-      {props.canAdd && (
         <button
           type="button"
           className="mt-4 px-4 py-2 bg-blue-500 text-white rounded"
@@ -66,9 +61,8 @@ const ArrayFieldTemplate = (props) => {
         >
           Thêm sản phẩm
         </button>
-      )}
+     
       {showModal && (
-       
         <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-800 bg-opacity-75">
           <div className="bg-white p-4 border rounded shadow-lg">
             <div className="mb-4">
@@ -93,14 +87,14 @@ const ArrayFieldTemplate = (props) => {
                 </div>
               )}
             </div>
-            <button className="mt-4 px-4 py-2 bg-blue-500 text-white rounded" onClick={() => { props.handleClick(search); setSearch('');} }> thêm</button>
+            <button className="mt-4 px-4 py-2 bg-blue-500 text-white rounded" onClick={ handleClick}>Thêm</button>
             <button className="mt-4 px-4 py-2 bg-blue-500 text-white rounded" onClick={() => setShowModal(false)}>Đóng</button>
           </div>
         </div>
       )}
-
+   <Modal isOpen={isOpen} onClose={closeModal} message={message} array={0} />
     </div>
   );
 };
 
-export default ArrayFieldTemplate;
+export default Add;
