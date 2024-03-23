@@ -118,7 +118,7 @@ fetchData()
   // }
   const handleRemove = async () => {
     console.log("remove")
-      fetchData()
+      // fetchData()
   };
   const onSubmit2 = async () => {
     const user = await app.currentUser.refreshCustomData();
