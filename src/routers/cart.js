@@ -10,8 +10,8 @@ const MyForm = () => {
     const app = new Realm.App({ id: process.env.REACT_APP_KEY });
     const [user,setUser]= useState([])
     const [newQuantities, setNewQuantities] = useState({});
-    const [jsonSchema, setjsonSchema] = useState([]);
-    const [uiSchema, setuiSchema] = useState([]);
+    const [jsonSchema, setjsonSchema] = useState({});
+    const [uiSchema, setuiSchema] = useState({});
     const [output, setOutput]= useState([])
     const [loading, setLoading] = useState(true);
     const [cart,setCart]=useState([])
