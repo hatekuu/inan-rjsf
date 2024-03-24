@@ -19,8 +19,8 @@ function App() {
   return (
 <Router>
       <Suspense fallback={<div>Loading...</div>}>
-        {/**/}
-        <Navbar />   
+        {/*<Navbar />   */}
+        
         <Routes>
        
           <Route path="/inan-rjsf/admin/addproduct" element={<AddProduct />} />
