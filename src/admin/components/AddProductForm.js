@@ -9,17 +9,17 @@ const ProductForm = ({ onSubmit, onError ,isLoading}) => {
     title:"Form thêm sản phẩm",
     properties: {
       productName: { type: 'string', title: 'Tên sản phẩm' },
+     
       productType: {
         type: 'string',
-        title: 'Cách in ấn',
-        enum: ['In 2d', 'In 3d'],
-        enumNames: ['In 2D', 'In 3D'],
+        title: 'Loại sản phẩm',
+        enum: ['Phôi thẻ trắng', 'Thẻ bảo lãnh','Thẻ bệnh viện','Thẻ dán NFC','Thẻ danh thiếp'],
       },
       purchasePrice: { type: 'number', title: 'Chi phí sản xuất,giá mua(Nghìn đồng)' },
       sellingPrice: { type: 'number', title: 'Giá bán' },
       quantity: { type: 'integer', title: 'Số lượng' },
     },
-    required: ['productName', 'productType', 'purchasePrice', 'sellingPrice', 'quantity'],
+    required: ['productName', 'productType', 'purchasePrice','sellingPrice', 'quantity'],
   };
   const uiSchema = {
  

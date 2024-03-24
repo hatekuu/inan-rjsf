@@ -13,16 +13,16 @@ const Products   =lazy(()=> import ( './routers/products'))
 const AddProduct  =lazy(()=> import ( './admin/products'))
 const  UserCart =lazy(()=> import ('./routers/cart'))
 const ProductForm =lazy(()=> import ( './FormComponent'))
-const Managerhome=lazy(()=> import ('./manager/managerhome'))
+
 
 function App() {
   return (
 <Router>
       <Suspense fallback={<div>Loading...</div>}>
-        {/*<Navbar />   */}
-        
+        {/**/}
+        <Navbar />   
         <Routes>
-          <Route path="/inan-rjsf/manager" element={<Managerhome />} />
+       
           <Route path="/inan-rjsf/admin/addproduct" element={<AddProduct />} />
           <Route path="/inan-rjsf/products" element={<Products />} />
           <Route path="/inan-rjsf/products/productform" element={<ProductForm />} />

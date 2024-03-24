@@ -15,13 +15,13 @@ const Login = () => {
     fetchData();
   }, []); // Empty dependency array means it runs once on mount
 
-  useEffect(() => {
-    try {
-      Realm.handleAuthRedirect();
-    } catch (error) {
+  // useEffect(() => {
+  //   try {
+  //     Realm.handleAuthRedirect();
+  //   } catch (error) {
       
-    }
-  }, []);
+  //   }
+  // }, []);
 
   const fetchData = async () => {
     try {
