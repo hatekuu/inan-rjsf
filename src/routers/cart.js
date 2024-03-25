@@ -35,9 +35,7 @@ const MyForm = () => {
       }
     }
     const fetchData = async () => {
-   
-        try {
-           
+        try {   
                 const functionName = "form";
                 const findCart = await app?.currentUser?.callFunction(functionName);
                 const cart= await app.currentUser.refreshCustomData()
@@ -55,12 +53,9 @@ const MyForm = () => {
             setLoading(false);
         }
     };
-
     useEffect( () => {
- 
         fetchData()
     },[]); // Add dependencies
-
   const onSubmit = async ({ formData }) => {
 const FunctionName = 'QueryProducts';
 const args=[formData,app?.currentUser?.id]
@@ -80,8 +75,6 @@ fetchData()
 }else{
   fetchData()
 }
-          
-
   };
   const handleAddProduct = async(product)=>{
     const funtionName="AddToCart"

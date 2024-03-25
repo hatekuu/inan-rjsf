@@ -13,7 +13,7 @@ const ProductForm = ({ onSubmit, onError ,isLoading}) => {
       productType: {
         type: 'string',
         title: 'Loại sản phẩm',
-        enum: ['Phôi thẻ trắng', 'Thẻ bảo lãnh','Thẻ bệnh viện','Thẻ dán NFC','Thẻ danh thiếp'],
+        // enum: ['Phôi thẻ trắng', 'Thẻ bảo lãnh','Thẻ bệnh viện','Thẻ dán NFC','Thẻ danh thiếp'],
       },
       purchasePrice: { type: 'number', title: 'Chi phí sản xuất,giá mua(Nghìn đồng)' },
       sellingPrice: { type: 'number', title: 'Giá bán' },
@@ -23,16 +23,7 @@ const ProductForm = ({ onSubmit, onError ,isLoading}) => {
   };
   const uiSchema = {
  
-    productType: {
     
-      'ui:widget': 'select',
-      'ui:options': {
-        enumOptions: [
-          { label: 'In 2D', value: 'in2d' },
-          { label: 'In 3D', value: 'in3d' },
-        ],
-      },
-    },
   
   };
   
